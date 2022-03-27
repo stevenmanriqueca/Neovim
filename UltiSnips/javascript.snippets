@@ -8,7 +8,107 @@ def lowerdash(t):
 endglobal
 
 # Normal javascript snippets
-snippet hola "Comienzo de email"
-Hola ${1:Lorenzo}
-$0
+
+snippet log "console.log" b
+console.log($1)
+endsnippet
+
+snippet switch "switch" b
+switch ($1) {
+		case value:
+
+			break;
+
+		default:
+			break;
+}
+endsnippet
+
+#Hooks React
+snippet useS "useState Hook"  b
+const [$1, set$3`!p snip.rv=upperfirst(t[1])`] = useState($2)
+endsnippet
+
+snippet useE "useEffect Hook"  b
+useEffect(() => {
+	$0
+	return () => {
+
+	}
+}, [$1])
+endsnippet
+
+snippet useC "useContext Hook" b
+const ${1:context} = useContext($2)
+endsnippet
+
+snippet useRed "useReducer(reducer, initialState, getInitialState) Hook" b
+const [${1:state}, ${2:dispatch}] = useReducer( reducer, state, INIT)
+endsnippet
+
+snippet useCB "useCallback(fn, inputs)" b
+const ${1:callback} = useCallback(($2) => ${3:{
+	$4
+}}, [$5])
+endsnippet
+
+snippet useM "useMemo Hook" b
+const ${1:memoized} = useMemo(() => ${2:{
+	$3
+}}, [$4])
+endsnippet
+
+snippet useR "useRef Hook" b
+const ${1:ref} = useRef(${2:null})
+endsnippet
+
+snippet useI "useImperitiveHandle Hook" b
+useImperitiveHandle(${1:ref}, ${4:() => ({
+	$2
+})}, ${5:[$3]})
+endsnippet
+
+snippet useL "useLayoutEffect Hook" b
+useLayoutEffect(() => {
+	$0
+}, [$1])
+endsnippet
+
+#React Snippets
+snippet rafcp "React Functional Component" b
+import React from 'react'
+import PropTypes from 'prop-types'
+
+const $1 = () => {
+	return (
+		<div>$0</div>
+	)
+}
+
+$1.propTypes = {}
+
+export default $1
+endsnippet
+
+snippet hoc "HOC" b
+import React from 'react'
+import PropTypes from 'prop-types'
+
+export default (WrappedComponent) => {
+	const hocComponent = ({ ...props }) => <WrappedComponent {...props} />
+
+	hocComponent.propTypes = {}
+
+	return hocComponent
+}
+endsnippet
+
+
+#Redux
+snippet useD "useDispatch" b
+const dispatch = useDispatch()
+endsnippet
+
+snippet useSL "useSelector(selector)" b
+const ${1:value} = useSelector(${2:state => $3})
 endsnippet

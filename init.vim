@@ -53,6 +53,8 @@ set textwidth=0 wrapmargin=0
 set confirm
 
 
+
+
 "Bloquear flechas direccionales
 noremap <Up> <Nop>
 noremap <Down> <Nop>

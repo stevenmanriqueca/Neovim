@@ -5,9 +5,21 @@ let g:UltiSnipsExpandTrigger = "<c-x>"
 let g:UltiSnipsListSnippets = "<c-l>"
 
 "Tema Gruvbox
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = "hard"
+"colorscheme gruvbox
+"let g:gruvbox_contrast_dark = "hard"
 
+"Tema Material
+
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'darker'
+colorscheme material
+
+highlight LineNr term=bold ctermfg=DarkCyan guifg=White 
+highlight CursorLineNR term=bold cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=White guibg=NONE
+highlight CursorLine term=bold cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=White guibg=NONE
+highlight Visual cterm=bold ctermbg=DarkGray ctermfg=NONE
+highlight Pmenu ctermbg=DarkGray
+highlight PmenuSel ctermbg=Green 
 
 "NERDTree
 
@@ -21,8 +33,10 @@ let NERDTreeShowHidden=0
 
 
 "Config Lightline
+" Material -> material_vim
+" Gruvbox -> wombat
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'material_vim',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'gitbranch', 'filename', 'modified' ] ]

@@ -5,7 +5,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 "Themes
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
 "CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
