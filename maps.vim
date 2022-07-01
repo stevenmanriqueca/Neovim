@@ -48,11 +48,14 @@ nnoremap <Leader>> 10<C-w>>
 nnoremap <Leader>< 10<C-w><
 
 "custom command to generate backticks
-:command! BackTicks :normal i ``<ESC>
-nmap <Leader>ba :BackTicks <CR>
+":command! BackTicks :normal i ``<ESC>
+"nmap <Leader>ba :BackTicks <CR>
 
 "Copy all content in the current file
 nmap <Leader>y :%y<CR>
+
+"Delete all content in the current file
+nmap <Leader>d :%d<CR>
 
 "Execute node in the current file
 nmap <Leader>z :!node %<CR>

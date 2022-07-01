@@ -24,17 +24,6 @@ switch ($1) {
 }
 endsnippet
 
-snippet try "try catch finally" b
-	try{
-
-		}catch(err){
-
-		}
-	finally{
-
-	}
-endsnippet
-
 #Hooks React
 snippet useS "useState Hook"  b
 const [$1, set$3`!p snip.rv=upperfirst(t[1])`] = useState($2)
@@ -52,6 +41,45 @@ endsnippet
 snippet useC "useContext Hook" b
 const ${1:context} = useContext($2)
 endsnippet
+
+snippet createContext "React Custom Context" b
+import { createContext } from "react";
+
+//Este es el estado del contexto no es el estado inicial
+
+interface ContextProps {
+	${2:prop1}: ${3:type};
+}
+
+export const ${1:Name}Context = createContext({} as ContextProps);
+endsnippet
+
+snippet reactProvider "React Custom Provider" b 
+import { FC, useReducer } from "react";
+import { ${1:Name}Context, ${3:uiReducer}} from "./";
+
+export interface $1State {
+	${2:Prop}: boolean;
+}
+
+const $1_INITIAL_STATE: $1State = {
+	$2: -> value,
+};
+
+interface Props {
+	children: React.ReactNode
+}
+
+export const $1Provider: FC<Props> = ({ children }) => {
+	const [state, dispatch] = useReducer( uiReducer , $1_INITIAL_STATE)
+	return (
+		<$1Context.Provider value={{ ...state }}>
+			{children}
+		</$1Context.Provider>
+	);
+};
+endsnippet
+
 
 snippet useRed "useReducer(reducer, initialState, getInitialState) Hook" b
 const [${1:state}, ${2:dispatch}] = useReducer( reducer, state, INIT)
@@ -90,7 +118,7 @@ endsnippet
 snippet rafc "React Arrow Function Component" b
 import React from 'react'
 
-export const ${1:`!v expand('%:t:r')`} = () => {
+export const ${1:`!v expand('%:t:r')`} = ():JSX.Element => {
 	return (
 		<div>$0</div>
 	)
@@ -101,31 +129,16 @@ endsnippet
 snippet rafce "React Arrow Function Component Export" b
 import React from 'react'
 
-const ${1:`!v expand('%:t:r')`} = () => {
+const ${1:`!v expand('%:t:r')`} = ():JSX.Element  => {
 	return (
 		<div>$0</div>
 	)
 }
 
-export default ${1:`!v expand('%:t:r')`}
+export default $1 
 endsnippet
 
 
-
-snippet rafcp "React Arrow Function Component PropTypes" b
-import React from 'react'
-import PropTypes from 'prop-types'
-
-const ${1:`!v expand('%:t:r')`} = () => {
-	return (
-		<div>$0</div>
-	)
-}
-
-$1.propTypes = {}
-
-export default $1
-endsnippet
 
 snippet hoc "HOC" b
 import React from 'react'
@@ -150,6 +163,7 @@ snippet useSL "useSelector(selector)" b
 const ${1:value} = useSelector(${2:state => $3})
 endsnippet
 
+
 #React Native
 
 snippet stles "Styles React Native" b
@@ -158,3 +172,47 @@ const styles = StyleSheet.create({
 })
 endsnippet
 
+
+#Next JS
+
+snippet nextdocument "Document Next Component" b
+import Document, {DocumentContext, Html, Head, Main, NextScript} from 'next/document'
+
+class MyDocument extends Document {
+	static async getInitialProps(ctx:DocumentContext){
+		const initialProps = await Document.getInitialProps(ctx)
+		return initialProps
+	}
+
+	render(){
+		return (
+				<Html>
+					<Head>
+
+					</Head>
+					<body>
+							<Main />
+							<NextScript />
+					</body>
+				</Html>
+		)
+	}
+}
+
+export default MyDocument
+endsnippet
+
+
+snippet nextapi "Next API Routes" b
+import type { NextApiRequest, NextApiResponse } from "next";
+
+type Data = {
+	name:string;
+};
+
+export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+	res.status(200).json({
+		name:"Example"
+	});
+}
+endsnippet

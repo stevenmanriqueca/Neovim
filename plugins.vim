@@ -2,7 +2,7 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 
 "highlight syntax
 Plug 'sheerun/vim-polyglot'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter'
 
 "Themes
 "Plug 'morhetz/gruvbox'
@@ -10,6 +10,9 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 
 "CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"Copilot
+"Plug 'github/copilot.vim'
 
 "nerdtree
 Plug 'scrooloose/nerdtree'
@@ -76,6 +79,5 @@ Plug 'Yggdroot/indentLine'
 "Colors CSS
 "Resaltar colores de css
 Plug 'ap/vim-css-color'
-
 
 call plug#end()
