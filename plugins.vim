@@ -1,8 +1,5 @@
 call plug#begin('~/AppData/Local/nvim/plugged')
 
-"highlight syntax
-Plug 'sheerun/vim-polyglot'
-Plug 'nvim-treesitter/nvim-treesitter'
 
 "Themes
 "Plug 'morhetz/gruvbox'
@@ -34,6 +31,11 @@ Plug 'SirVer/ultisnips'
 
 "snippets for react/js-tsx
 "Plug 'mlaursen/vim-react-snippets'
+
+"highlight syntax
+Plug 'sheerun/vim-polyglot'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 
 "telescope
 Plug 'nvim-lua/plenary.nvim'
