@@ -41,6 +41,10 @@ Install [Python](https://www.python.org/downloads/) and after execute:
 ```
 python -m pip install
 ```
+if the error persist run
+```
+python -m pip install --user --upgrade pynvim
+```
 
 ## TypeScript
 Install in terminal(cmd - admin):
