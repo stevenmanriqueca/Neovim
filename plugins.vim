@@ -3,7 +3,9 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 
 "Themes
 "Plug 'morhetz/gruvbox'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+"Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'ts-26a/vim-darkspace'
+
 
 "CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

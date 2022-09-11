@@ -7,36 +7,10 @@
 let g:UltiSnipsExpandTrigger = "<c-x>"
 let g:UltiSnipsListSnippets = "<c-l>"
 
-
-
-"Tema Gruvbox
-"colorscheme gruvbox
-"let g:gruvbox_contrast_dark = "hard"
-
-
-"Tema Material
-
-if (has('nvim'))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
-
-if (has('termguicolors'))
-  set termguicolors
-endif
-
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'ocean'
-colorscheme material
-
-
-"
-highlight LineNr term=bold ctermfg=DarkYellow guifg=White 
-highlight CursorLineNR term=bold cterm=NONE ctermfg=White ctermbg=NONE gui=NONE guifg=Yellow 
-"2 -> highlight CursorLineNR term=bold cterm=NONE ctermfg=White ctermbg=NONE gui=NONE guifg=White guibg=White
-"highlight CursorLine term=bold cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=White guibg=NONE
-"highlight Visual cterm=bold ctermbg=DarkGray ctermfg=NONE
-"highlight Pmenu ctermbg=DarkGray
-"highlight PmenuSel ctermbg=Green 
+"Config Theme
+"so ~/AppData/Local/nvim/themes/gruvbox.vim
+"so ~/AppData/Local/nvim/themes/material.vim
+so ~/AppData/Local/nvim/themes/darkspace.vim
 
 "NERDTree
 
@@ -49,11 +23,11 @@ let NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=0
 
 
-"Config Lightline
+" -> Config Lightline
 " Material -> material_vim
 " Gruvbox -> wombat
 let g:lightline = {
-      \ 'colorscheme': 'material_vim',
+      \ 'colorscheme': 'darkspace',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'gitbranch', 'filename', 'modified', 'Copilot' ] ]
@@ -77,46 +51,30 @@ let g:prettier#config#print_width = 'auto'
 
 "-------------CoC----------------------
 
-let g:coc_global_extensions = ['coc-tsserver', 'coc-css', 'coc-json', 'coc-html', 'coc-phpls']
-
-set encoding=utf-8
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -128,26 +86,25 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
@@ -239,4 +196,3 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
